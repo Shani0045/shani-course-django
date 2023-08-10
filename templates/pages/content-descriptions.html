@@ -1,0 +1,35 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Feature Start -->
+<div class="container-fluid bg-image" style="margin: 90px 0;">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                  {% if descriptions %}
+                    <tr>
+                      <th class="font-weight-bold text-dark"></th>
+                    </tr>
+                  {% endif %}
+                </thead>
+                <tbody>
+                  {% if not descriptions %}
+                    <tr>
+                      <td class="font-weight-bold text-dark text-center">No Content Found!</td>
+                    </tr>
+                  {% else %}
+                    <tr>
+                      <th class="font-weight-bold text-dark">{{descriptions.descriptions}}</th>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+<!-- Feature Start -->
+{% endblock %}

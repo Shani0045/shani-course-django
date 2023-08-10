@@ -1,0 +1,17 @@
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+{% comment %} {% include "components/top-header.html" %} {% endcomment %}
+{% include "components/navbar.html" %}
+{% include "components/header.html" %}
+
+<!--Main Content Start-->
+{% block content %} 
+{% endblock %}
+<!--Main Content End-->
+
+{% include "components/footer.html" %}
+
+{% endblock %}

@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Feature Start -->
+<div class="container-fluid bg-image" style="margin: 90px 0;">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                  {% if contents %}
+                  <tr>
+                    <th class="font-weight-bold text-dark">Serial</th>
+                    <th class="font-weight-bold text-dark">Contents</th>
+                  </tr>
+                  {% endif %}
+                </thead>
+                <tbody>
+                  {% if not contents %}
+                    <tr>
+                      <td class="font-weight-bold text-dark text-center">No Content Found!</td>
+                    </tr>
+                  {% else %}
+                    {% for content in contents %}
+                      <tr>
+                        <th class="font-weight-bold text-dark">{{ content.id }}</th>
+                        <td class="font-weight-bold"><a href="{% url 'description' content.id %}" class="text-dark">{{ content.content|title }}</a></td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              </table>  
+        </div>
+    </div>
+</div>
+<!-- Feature Start -->
+{% endblock %}
