@@ -1,0 +1,56 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres_container
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - djangoPostgres:/var/lib/postgresql/data
+    networks:
+      - djangoNetwork
+    restart:
+      always
+    
+  django-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_app_container
+    volumes:
+      - djangoStatic:/opt/app/static
+    ports:
+      - 8000:8000
+    command: ["sh","./runtime.sh"]
+    networks:
+      - djangoNetwork
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    restart:
+      always
+
+  nginx:
+    build: ./nginx
+    container_name: nginx_container
+    volumes:
+      - djangoStatic:/opt/app/static
+    ports:
+      - 80:80
+    networks:
+      - djangoNetwork
+    depends_on:
+      - postgres
+      - django-app
+    restart:
+      always
+
+volumes:
+  djangoPostgres:
+  djangoStatic:
+
+networks:
+  djangoNetwork:
